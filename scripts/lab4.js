@@ -6,7 +6,7 @@
  * @returns The sum of the two numbers if add is true and false otherwise.
  */
 function sumValues(num1, num2, add) {
-    if (add) {
+    if (add === true) {
         let result = 0;
 
         result = num1 + num2;
@@ -14,7 +14,7 @@ function sumValues(num1, num2, add) {
         return result;
     }
     else {
-        return !add;
+        return false;
     }
 }
 
@@ -29,11 +29,17 @@ function discountPrices(prices, discount) {
     const length = prices.length;
     let discountedPrice = 0
 
-    if (length === 0) {
+    if (length === 0 || Array.isArray(prices) === false) {
         return false;
     }
+    if (typeof discount !== 'number' || discount < 0 || discount > 1) {
+        return false;
+      }
 
     for(let i = 0; i < length; i++) {
+        if (typeof prices[i] !== 'number') {
+            return false;
+        }
         discountedPrice = prices[i] * (1 - discount);
         discounted.push(discountedPrice);
     }
@@ -42,3 +48,6 @@ function discountPrices(prices, discount) {
 }
 
 module.exports = {sumValues, discountPrices};
+
+// console.log(sumValues(1, 2, false));
+console.log(discountPrices('not an arary', 0.2));
